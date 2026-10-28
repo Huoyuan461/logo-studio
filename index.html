@@ -87,7 +87,7 @@ const PALETTES = [
 ];
 const INDUSTRY_EN = {"科技":"TECHNOLOGY","餐饮":"DINING","教育":"EDUCATION","医疗":"HEALTHCARE","金融":"FINANCE","电商":"E-COMMERCE","制造":"MANUFACTURING","文旅":"CULTURE & TRAVEL"};
 let __gid = 0;
-let industry = "科技", style = "minimal", paletteIdx = 0, seed = 0, LETTER = "L";
+let industry = "科技", styleId = "minimal", paletteIdx = 0, seed = 0, LETTER = "L";
 
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 
@@ -215,7 +215,7 @@ function renderChips(){
   document.getElementById("industryChips").innerHTML = INDUSTRIES.map(i=>
     `<button class="chip ${i===industry?"on":""}" onclick="industry='${i}';renderChips()">${i}</button>`).join("");
   document.getElementById("styleChips").innerHTML = STYLES.map(s=>
-    `<button class="chip ${s.id===style?"on":""}" onclick="style='${s.id}';renderChips()">${s.label}</button>`).join("");
+    `<button class="chip ${s.id===styleId?"on":""}" onclick="styleId='${s.id}';renderChips()">${s.label}</button>`).join("");
   document.getElementById("swatches").innerHTML = PALETTES.map((p,i)=>
     `<button class="sw ${i===paletteIdx?"on":""}" style="background:${p.c}" title="${p.name}" onclick="paletteIdx=${i};renderChips()"></button>`).join("");
 }
@@ -231,7 +231,7 @@ function generate(){
   const baseNote = found ? found.note : "品牌首字徽章：无具象关键词时最稳妥的方案";
   const P = PALETTES[(paletteIdx + seed) % PALETTES.length];
   const P2 = PALETTES[(paletteIdx + seed + 2) % PALETTES.length];
-  const order = style === "line" ? [4,0,1,2,3,5] : style === "badge" ? [2,0,1,3,4,5] : style === "mono" ? [3,0,1,2,4,5] : [0,1,2,3,4,5];
+  const order = styleId === "line" ? [4,0,1,2,3,5] : styleId === "badge" ? [2,0,1,3,4,5] : styleId === "mono" ? [3,0,1,2,4,5] : [0,1,2,3,4,5];
   const variants = order.map((v, i)=>{
     const pal = i % 2 === 0 ? P : P2;
     const key = motifKey || "letter";
